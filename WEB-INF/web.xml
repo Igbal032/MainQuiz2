@@ -1,0 +1,34 @@
+<web-app>
+
+  <servlet>
+    <servlet-name>Student Servlet</servlet-name>
+    <servlet-class>wm2.quiz.StudentServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Student Servlet</servlet-name>
+    <url-pattern>/student-servlet</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+    <servlet-name>Question Servlet</servlet-name>
+    <servlet-class>wm2.quiz.QuestionServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Question Servlet</servlet-name>
+    <url-pattern>/question-servlet</url-pattern>
+  </servlet-mapping> 
+
+   <servlet>
+    <servlet-name>Calculate Servlet</servlet-name>
+    <servlet-class>wm2.quiz.CalculateServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>Calculate Servlet</servlet-name>
+    <url-pattern>/calculate-servlet</url-pattern>
+  </servlet-mapping> 
+
+</web-app>
+

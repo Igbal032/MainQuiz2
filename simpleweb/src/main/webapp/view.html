@@ -1,0 +1,65 @@
+<!-- <%@ page import = "java.util.*, wm2.quiz.Student"%> -->
+
+<html>
+<style type="text/css">
+  #mainDiv p{
+    padding: 10px;
+  }
+  .forButtons button{
+    width: 100px;
+    height: 30px;
+  }
+  .forFinishButton button{
+    width: 100px;
+    height: 30px;
+  }
+</style>
+<head><title>Quiz Page</title></head>
+
+<body>
+
+
+  <h1 style="text-align: center;">Good Luck</h1>
+  <table align="center" style="width:40%; text-align: center;">
+  <tr>
+    <th>ID</th>
+    <th>Firstname</th>
+    <th>Lastname</th> 
+    <th>Email</th>
+  </tr>
+<!-- 
+ <%
+  Student stInfo = (Student)session.getAttribute("studentInfo");
+ %> -->
+  <tr>
+    <td>1</td>
+    <td>Igbal</td> 
+    <td>Hasanli</td>
+    <td>Email</td>
+  </tr>
+  </table>
+<div id="mainDiv" style="border: 5px solid green; height: 500px; width: 800px; margin: 0 auto;position: relative;">
+  <div class="hoverDiv" style="position: absolute;width: 100%; height: 100%; background-color: green; opacity: 0.9; display: none;">
+    <h1 style="text-align: center;margin-top:25%;">Finish</h1>
+  </div>
+  <form action="" method="">
+  <h4>№.1</h4>
+  <p>Hansı müddət ərzində minik avtomobili texniki baxışdan azaddır?</p>
+  <p><input id="first" type="radio" name="variant" value="a"><label for="first">A)  İstehsal günündən 5 il ərzində. </label></input></p>
+  <p><input id="second" type="radio" name="variant" value="b"><label for="second">B)  Əldə olunan gündən 5 il ərzində.</label></input></p>
+  <p><input id="third" type="radio" name="variant" value="c"><label for="third">C)  Əldə olunan gündən 4 il ərzində.</label></input></p>
+  <p><input id="fourth" type="radio" name="variant" value="d"><label for="fourth">D) v İstehsal günündən 4 il ərzində.</label></input></p>
+  <div class="forButtons" style="display: flex;justify-content: space-around; padding: 50px"><button>Geriyə</button> <button>İrəli</button></div>
+  <div id="forFinishButton" style="display: flex;justify-content: center;"><button>Bitir</button></div>
+  <div class="content" style="display: flex;justify-content: space-between;">
+  <p>Düzgün cavabların sayı: 7</p>
+  <p>Yanlış cavabların sayı: 3</p>
+  </div>
+  </form>
+</div>
+
+  
+
+</body>
+
+</html>
