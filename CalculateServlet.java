@@ -14,6 +14,16 @@ public class CalculateServlet extends HttpServlet{
 	public void doPost(HttpServletRequest request,HttpServletResponse response) {
 
 	try{
+        HttpSession session = request.getSession(false);
+        if (session!=null)
+        {
+           System.out.println("In session and time");
+        }
+        else{
+          RequestDispatcher loginPage = request.getRequestDispatcher("index.html");
+          loginPage.forward(request,response);
+        }
+
         int FalseAnswer = 0;
         int TrueAnswer = 0;
         int totalScore = 0;
@@ -35,28 +45,41 @@ public class CalculateServlet extends HttpServlet{
           }
         }  
 
-      Result newResult = new Result();
-      newResult.setUserName(userName);
-      newResult.setTrue(TrueAnswer);
-      newResult.setFalse(FalseAnswer);
-      newResult.setUserPassword(userPassword);
-      newResult.setTotalScore(totalScore);
-      newResult.setEndDate(new Date());
-      UserResult.add(newResult);
+         Result newResult = new Result();
+         newResult.setUserName(userName);
+         newResult.setTrue(TrueAnswer);
+         newResult.setFalse(FalseAnswer);
+         newResult.setUserPassword(userPassword);
+         newResult.setTotalScore(totalScore);
+         newResult.setEndDate(new Date());
+         UserResult.add(newResult);
+   
+       	 wrt.println("<html><head></head><body>");
+         request.getSession().setAttribute("Result",newResult);
+         RequestDispatcher view2 = request.getRequestDispatcher("resultPage.jsp");
+   		   view2.forward(request,response);
+   
+	       wrt.println("</body></html>");
 
-    	wrt.println("<html><head></head><body>");
-       request.getSession().setAttribute("Result",newResult);
-       RequestDispatcher view2 = request.getRequestDispatcher("resultPage.jsp");
-		   view2.forward(request,response);
-
-		wrt.println("</body></html>");
-
-      
         }
 
     catch (Exception ex) {
 	      	System.out.println(ex);
 	}
+
+}
+
+public void doGet(HttpServletRequest request,HttpServletResponse response){
+
+  try{
+    HttpSession session = request.getSession();
+    session.invalidate();
+    RequestDispatcher view2 = request.getRequestDispatcher("index.html");
+    view2.forward(request,response);
+  }
+  catch (Exception ex) {
+          System.out.println(ex);
+  }
 
 }
 

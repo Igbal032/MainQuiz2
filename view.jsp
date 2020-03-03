@@ -86,7 +86,7 @@ wm2.quiz.findQuestion getQues = new findQuestion();
   <input type="hidden" name="hiddenUserName" value="<%=stData.getUserName()%>">
   <input type="hidden" name="getCurrentQuestionId" value="<%=stData.getCurrentQuestionId()%>">
   <input type="hidden" name="getCurrentQuestionId2" value="<%=currentQ.getId()%>">
-  <!-- <input id="hiddenRadio" type="hidden"  name="variant"  value="4"/> -->
+  <input type="hidden" name="hiddenUserPassword" value="<%=stData.getPassword()%>">
 
   
   <p><%=currentQ.getId()+". "%><%=currentQ.getQstatement()%></p>

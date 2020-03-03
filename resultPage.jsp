@@ -3,7 +3,7 @@
 Result result = (Result)session.getAttribute("Result");
 Date date = Calendar.getInstance().getTime();  
 DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");  
-String strDate = dateFormat.format(result.getEndDate());  
+// String strDate = dateFormat.format(result.getEndDate());  
 %>
 
 <!DOCTYPE html>
@@ -12,13 +12,13 @@ String strDate = dateFormat.format(result.getEndDate());
 	<title>Result</title>
 </head>
 <body>
-<div id="mainDiv" style="border:1px solid red; width: 500px; height: 300px">
+<div id="mainDiv" style="border:1px solid red; width: 800px; height: 300px">
 	<h1>Name: <%=result.getUserName()%></h1>
 	<h1>Correct Answer: <%=result.getTrue()%></h1>
 	<h1>Wrong Answer: <%=result.getFalse()%></h1>
 	<h1>Total Score: <%=result.getTotalScore()%></h1>
-	<h1>End Date: <%=strDate%></h1>
-<!-- 	<h1>Password: <%=result.getUserPassword()%></h1>
- --></div>
+	<h1>End Date: <%=result.getEndDate()%></h1>
+	<div class="buttonDiv" style="wid"100%><form method="GET" action="/Quiz/calculate-servlet"><button type="submit">Log Out</button></form></div>
+ </div>
 </body>
 </html>

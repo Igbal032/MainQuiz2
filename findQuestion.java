@@ -220,21 +220,18 @@ public class findQuestion{
 
     }
 
-    // public static boolean checkTime(String endDate){
-    //     boolean checkTime=true;
-    //     Date date = Calendar.getInstance().getTime();  
-    //     DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");  
-    //     String strCrtDate = dateFormat.format(date); 
-    //     if (strCrtDate==endDate){
-    //         checkTime=true;
-    //     System.out.println("Equal");
-    //     }
-    //     else{
-    //         checkTime=false;
-    //         System.out.println("NOt Equal");
-    //     }
+     public static boolean checkTime(Date endDate){
+          boolean checkTime=true;
+          Date currentDate = Calendar.getInstance().getTime();
+          if (currentDate.compareTo(endDate)>0){
+              checkTime=true;
+          }
+          else{
+              checkTime=false;
+          }
+          return checkTime;
+     }
 
-    //     return checkTime;
-    // }
 
 }
+    
