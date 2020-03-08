@@ -4,8 +4,6 @@ Student stData = (Student)session.getAttribute("newStudent");
 Question currentQuestion =(Question)session.getAttribute("currentQuestion");
 Question currentQ = new Question();
 Integer currentVariantVal=0;
-String startDate="";
-String endDate="";
 StartAndEndDate dates=new StartAndEndDate(); 
 wm2.quiz.findQuestion getQues = new findQuestion();
  if(currentQuestion!=null){
@@ -19,34 +17,6 @@ wm2.quiz.findQuestion getQues = new findQuestion();
   }
 %>
 <html>
-<script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function() {
-
-  if("<%=currentVariantVal%>"=="<%=currentQuestion.getVarId1()%>"){
-      var first = document.getElementById("first");
-      first.setAttribute("checked",true);
-      var second = document.getElementById("second").removeAttribute(checked);
-      var third = document.getElementById("third").removeAttribute(checked);
-      // var hiddenRadio = document.getElementById("hiddenRadio").removeAttribute(checked);   
-   }
-   else if("<%=currentVariantVal%>"=="<%=currentQuestion.getVarId2()%>"){
-      var second = document.getElementById("second");
-      second.setAttribute("checked",true);
-      var first = document.getElementById("first").removeAttribute(checked);
-      var third = document.getElementById("third").removeAttribute(checked);
-      // var hiddenRadio = document.getElementById("hiddenRadio").removeAttribute(checked);   
-    }
-   else if("<%=currentVariantVal%>"=="<%=currentQuestion.getVarId3()%>"){
-      var third = document.getElementById("third");
-      third.setAttribute("checked",true);
-      var first = document.getElementById("first").removeAttribute(checked);
-      var second = document.getElementById("second").removeAttribute(checked);
-   }
-  
-
-  });
-  
-</script>
 <style type="text/css">
   #mainDiv p{
     padding: 10px;
@@ -66,14 +36,14 @@ wm2.quiz.findQuestion getQues = new findQuestion();
   <h1 style="text-align: center;">Good Luck</h1>
   <table align="center" style="width:40%; text-align: center;">
   <tr>
+    <th>User Name</th>
     <th>Start Date</th>
     <th>End Date</th>
-    <th>User Name</th>
   </tr>
   <tr>
+    <td><%=stData.getUserName()%></td>     
     <td><%=dates.getStartDate()%></td>
     <td><%=dates.getEndDate()%></td> 
-    <td><%=stData.getUserName()%></td> 
   </tr>
 
   </table>
@@ -84,23 +54,22 @@ wm2.quiz.findQuestion getQues = new findQuestion();
   <form method="POST" action="/Quiz/question-servlet">
   <input type="hidden" name="hiddenUserId" value="<%=stData.getId()%>">
   <input type="hidden" name="hiddenUserName" value="<%=stData.getUserName()%>">
-  <input type="hidden" name="getCurrentQuestionId" value="<%=stData.getCurrentQuestionId()%>">
   <input type="hidden" name="getCurrentQuestionId2" value="<%=currentQ.getId()%>">
-  <input type="hidden" name="hiddenUserPassword" value="<%=stData.getPassword()%>">
-
+  <input id="hiddenCheck" type="hidden" name="checkedOrNot" value="">
   
   <p><%=currentQ.getId()+". "%><%=currentQ.getQstatement()%></p>
-  <p>
-    <input id="first" type="radio"  name="variant"  value="<%=currentQ.getVarId1()%>"/>
+  <p class="statements">
+    <input id="first" class="variantClass"type="radio" name="variant"  value="<%=currentQ.getVarId1()%>"/>
     <label for="first">A) <%=currentQ.getVarStat1()%> </label></input></p>
-  <p>
-    <input id="second" type="radio" name="variant"  value="<%=currentQ.getVarId2()%>"/>
+  <p class="statements">
+    <input id="second" class="variantClass" type="radio" name="variant"  value="<%=currentQ.getVarId2()%>"/>
     <label for="second">B)  <%=currentQ.getVarStat2()%></label></input></p>
-  <p>
-    <input id="third" type="radio" name="variant"  value="<%=currentQ.getVarId3()%>"/>
+  <p class="statements">
+    <input id="third" class="variantClass" type="radio" name="variant"  value="<%=currentQ.getVarId3()%>"/>
     <label for="third">C) <%=currentQ.getVarStat3()%></label></input></p>
-  <div class="forButtons" style="display: flex;justify-content: space-around; padding: 50px"><input type="submit" name="BackButton" value="Back"/> <input type="submit" name="NextButton" value="Next"></div>
-  <div class="content" style="display: flex;justify-content: space-between;">
+  <div class="forButtons" style="display: flex;justify-content: space-around; padding: 50px">
+    <input type="submit" name="BackButton" id="backButtonId" class="forwardButtons" value="Back"/> 
+    <input type="submit" name="NextButton" id="nextButtonId" class="forwardButtons" value="Next">
   </div>
   </form>
   <form method="POST" action="/Quiz/calculate-servlet">
@@ -112,8 +81,57 @@ wm2.quiz.findQuestion getQues = new findQuestion();
   </form>
 </div>
 
-  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+  if($("#hiddenCheck").val()!="checked"){
+    $(".forwardButtons").css("display","none")
+  }
+  else{
+    $(".forwardButtons").css("display","block")
+  }
+  if ("<%=currentQ.getId()%>"<=1) {
+    $("#backButtonId").css("display","none")
+  }
+  else if ("<%=currentQ.getId()%>">=10) {
+    $("#nextButtonId").css("display","none")
+  }
+  if("<%=currentVariantVal%>"=="<%=currentQuestion.getVarId1()%>"){
+      $(".forwardButtons").css("display","block")
+      var first = document.getElementById("first");
+      first.setAttribute("checked",true);
+      var second = document.getElementById("second").removeAttribute(checked);
+      var third = document.getElementById("third").removeAttribute(checked);
+   }
+   else if("<%=currentVariantVal%>"=="<%=currentQuestion.getVarId2()%>"){
+      $(".forwardButtons").css("display","block")
+      var second = document.getElementById("second");
+      second.setAttribute("checked",true);
+      var first = document.getElementById("first").removeAttribute(checked);
+      var third = document.getElementById("third").removeAttribute(checked);
+    }
+   else if("<%=currentVariantVal%>"=="<%=currentQuestion.getVarId3()%>"){
+      $(".forwardButtons").css("display","block")
+      var third = document.getElementById("third");
+      third.setAttribute("checked",true);
+      var first = document.getElementById("first").removeAttribute(checked);
+      var second = document.getElementById("second").removeAttribute(checked);
+   }
 
+  });
+
+  $("p.statements input, p.statements label").click(function(event){
+    $("#hiddenCheck").val("checked")
+    $(".forwardButtons").css("display","block")
+  if ("<%=currentQ.getId()%>"<=1) {
+    $("#backButtonId").css("display","none")
+  }
+  else if ("<%=currentQ.getId()%>">=10) {
+    $("#nextButtonId").css("display","none")
+  }
+  })
+
+</script>
 </body>
 
 </html>

@@ -6,24 +6,29 @@ import javax.servlet.*;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class CalculateServlet extends HttpServlet{
-	public  void init(){
+public class CalculateServlet extends HttpServlet
+{
 
-	}
-  public static ArrayList<Result> UserResult = new ArrayList<Result>();
-	public void doPost(HttpServletRequest request,HttpServletResponse response) {
+    public void init()
+{
 
-	try{
+}
+public static ArrayList<Result> UserResult = new ArrayList<Result>();
+public void doPost(HttpServletRequest request, HttpServletResponse response)
+{
+
+    try
+    {
         HttpSession session = request.getSession(false);
-        if (session!=null)
+        if (session != null)
         {
-           System.out.println("In session and time");
+            System.out.println("In session and time");
         }
-        else{
-          RequestDispatcher loginPage = request.getRequestDispatcher("index.html");
-          loginPage.forward(request,response);
+        else
+        {
+            RequestDispatcher loginPage = request.getRequestDispatcher("index.html");
+            loginPage.forward(request, response);
         }
-
         int FalseAnswer = 0;
         int TrueAnswer = 0;
         int totalScore = 0;
@@ -34,52 +39,59 @@ public class CalculateServlet extends HttpServlet{
         // wrt.println();
         ArrayList<CheckedAnswerss> checkAnswersList = newFinQues.checkedAnswerList;
         Iterator iterator = checkAnswersList.iterator();
-        while(iterator.hasNext()) {
-          CheckedAnswerss stdQ = (CheckedAnswerss)iterator.next();
-          if (stdQ.getTF()==true&&stdQ.getUserName().equals(userName)) {
-            TrueAnswer++;
-            totalScore=TrueAnswer*10;
-          }
-          else if(stdQ.getTF()==false&&stdQ.getUserName().equals(userName)){
-            FalseAnswer++;
-          }
-        }  
-
-         Result newResult = new Result();
-         newResult.setUserName(userName);
-         newResult.setTrue(TrueAnswer);
-         newResult.setFalse(FalseAnswer);
-         newResult.setUserPassword(userPassword);
-         newResult.setTotalScore(totalScore);
-         newResult.setEndDate(new Date());
-         UserResult.add(newResult);
-   
-       	 wrt.println("<html><head></head><body>");
-         request.getSession().setAttribute("Result",newResult);
-         RequestDispatcher view2 = request.getRequestDispatcher("resultPage.jsp");
-   		   view2.forward(request,response);
-   
-	       wrt.println("</body></html>");
-
+        while (iterator.hasNext())
+        {
+            CheckedAnswerss stdQ = (CheckedAnswerss)iterator.next();
+            if (stdQ.getTF() == true && stdQ.getUserName().equals(userName))
+            {
+                TrueAnswer++;
+                totalScore = TrueAnswer * 10;
+            }
+            else if (stdQ.getTF() == false && stdQ.getUserName().equals(userName))
+            {
+                FalseAnswer++;
+            }
         }
 
-    catch (Exception ex) {
-	      	System.out.println(ex);
-	}
+        Result newResult = new Result();
+        newResult.setUserName(userName);
+        newResult.setTrue(TrueAnswer);
+        newResult.setFalse(FalseAnswer);
+        newResult.setUserPassword(userPassword);
+        newResult.setTotalScore(totalScore);
+        newResult.setEndDate(new Date());
+        UserResult.add(newResult);
+
+        wrt.println("<html><head></head><body>");
+        request.getSession().setAttribute("Result", newResult);
+        RequestDispatcher view2 = request.getRequestDispatcher("resultPage.jsp");
+        view2.forward(request, response);
+
+        wrt.println("</body></html>");
+
+    }
+
+    catch (Exception ex)
+    {
+        System.out.println(ex);
+    }
 
 }
 
-public void doGet(HttpServletRequest request,HttpServletResponse response){
+public void doGet(HttpServletRequest request, HttpServletResponse response)
+{
 
-  try{
-    HttpSession session = request.getSession();
-    session.invalidate();
-    RequestDispatcher view2 = request.getRequestDispatcher("index.html");
-    view2.forward(request,response);
-  }
-  catch (Exception ex) {
-          System.out.println(ex);
-  }
+    try
+    {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        RequestDispatcher view2 = request.getRequestDispatcher("index.html");
+        view2.forward(request, response);
+    }
+    catch (Exception ex)
+    {
+        System.out.println(ex);
+    }
 
 }
 
